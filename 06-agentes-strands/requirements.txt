@@ -1,0 +1,26 @@
+# Dependencias del laboratorio completo.
+# Se instalan UNA sola vez, desde la raiz:
+#   pip install -r requirements.txt
+
+# Framework de agentes. El extra [openai] es OBLIGATORIO: es el que trae la
+# libreria openai que necesita strands.models.openai.OpenAIModel. Sin el extra,
+# los scripts fallan con "ModuleNotFoundError: No module named 'openai'".
+strands-agents[openai]
+
+# Carga la clave OPENAI_API_KEY desde el archivo .env.
+python-dotenv
+
+# --- Para el reto (modulo 07) -----------------------------------------------
+# Los modulos 00 a 06 no usan estos dos paquetes. Quedan habilitados porque el
+# reto es de dominio libre: si eliges un dominio que necesita datos del mundo
+# real (precios, noticias, documentacion), puedes usar las herramientas que ya
+# trae Strands en lugar de escribirlas desde cero. Por ejemplo:
+#   from strands_tools import http_request, calculator, file_read
+# y para busqueda web con DuckDuckGo, el paquete ddgs.
+#
+# Advertencia para el reto: una herramienta que sale a internet introduce
+# variabilidad que NO controlas (la web cambia entre corridas). Si la usas,
+# tenlo en cuenta al interpretar la consistencia entre repeticiones y decláralo
+# en la seccion de amenazas a la validez de tu analisis.
+strands-agents-tools
+ddgs
