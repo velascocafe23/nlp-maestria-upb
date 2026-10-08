@@ -1,4 +1,4 @@
-# Entrega 6 · Agentes con Strands + Reto 07: ¿de verdad necesitas un agente?
+# Semana 3 · Agentes con Strands + Reto 07: ¿de verdad necesitas un agente?
 
 **Autor:** Sebastián Velasco Ardila · **Entorno:** local (Python 3.10+), API de OpenAI (`gpt-5.6-luna` vía `OpenAIResponsesModel`)
 
@@ -17,7 +17,7 @@ Asistente de reservas para apartamentos turísticos en Armenia, Quindío, resuel
 ## Cómo reproducir
 
 ```bash
-cd 06-agentes-strands
+cd semana-3/agentes-strands
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env            # y poner OPENAI_API_KEY=sk-...

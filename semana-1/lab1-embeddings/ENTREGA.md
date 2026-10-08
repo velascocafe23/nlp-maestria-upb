@@ -1,7 +1,7 @@
-# Entrega 1 · Lab 1: Preprocesamiento, N-grams y Word Embeddings
+# Semana 1 · Lab 1: Preprocesamiento, N-grams y Word Embeddings
 
 **Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (CPU)
-**Notebook:** [`lab1_embeddings.ipynb`](lab1_embeddings.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/01-lab1-embeddings/lab1_embeddings.ipynb))
+**Notebook:** [`lab1_embeddings.ipynb`](lab1_embeddings.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/semana-1/lab1-embeddings/lab1_embeddings.ipynb))
 
 ## Qué se hizo
 

@@ -1,7 +1,7 @@
-# Entrega 5 · Lab SFT: Supervised Fine-tuning de BETO para sentimiento
+# Extra · Lab SFT: Supervised Fine-tuning de BETO para sentimiento
 
 **Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (GPU T4)
-**Notebook:** [`lab_sft_beto.ipynb`](lab_sft_beto.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/05-sft-beto/lab_sft_beto.ipynb))
+**Notebook:** [`lab_sft_beto.ipynb`](lab_sft_beto.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/extras/sft-beto/lab_sft_beto.ipynb))
 
 ## Qué se hizo
 

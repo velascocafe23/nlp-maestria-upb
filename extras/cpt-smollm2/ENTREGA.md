@@ -1,7 +1,7 @@
-# Entrega 4 · Lab CPT: Continued Pretraining de SmolLM2-135M
+# Extra · Lab CPT: Continued Pretraining de SmolLM2-135M
 
 **Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (GPU Tesla T4) · **Ejecutado:** 7 de octubre de 2026
-**Notebook:** [`lab_cpt_smollm2.ipynb`](lab_cpt_smollm2.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/04-cpt-smollm2/lab_cpt_smollm2.ipynb)) — ejecutado de principio a fin, sin errores, con las salidas guardadas.
+**Notebook:** [`lab_cpt_smollm2.ipynb`](lab_cpt_smollm2.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/extras/cpt-smollm2/lab_cpt_smollm2.ipynb)) — ejecutado de principio a fin, sin errores, con las salidas guardadas.
 
 ## Qué se hizo
 

@@ -1,7 +1,7 @@
-# Entrega 2 · Lab 3: Transformers y HuggingFace en Español
+# Semana 1 · Lab 3: Transformers y HuggingFace en Español
 
 **Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (CPU)
-**Notebook:** [`lab3_transformers.ipynb`](lab3_transformers.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/02-lab3-transformers/lab3_transformers.ipynb))
+**Notebook:** [`lab3_transformers.ipynb`](lab3_transformers.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/semana-1/lab3-transformers/lab3_transformers.ipynb))
 
 ## Qué se hizo
 

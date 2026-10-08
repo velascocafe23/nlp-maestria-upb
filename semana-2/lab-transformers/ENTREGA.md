@@ -1,7 +1,7 @@
-# Entrega 3 · Lab Transformers · Semana 2: embeddings contextuales, comparativa multi-modelo, atención, clustering y zero-shot
+# Semana 2 · Lab Transformers · Semana 2: embeddings contextuales, comparativa multi-modelo, atención, clustering y zero-shot
 
 **Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (GPU T4)
-**Notebook:** [`lab_transformers_semana2.ipynb`](lab_transformers_semana2.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/03-transformers-semana2/lab_transformers_semana2.ipynb))
+**Notebook:** [`lab_transformers_semana2.ipynb`](lab_transformers_semana2.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/semana-2/lab-transformers/lab_transformers_semana2.ipynb))
 
 ## Qué se hizo
 
