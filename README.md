@@ -19,7 +19,7 @@ Cada carpeta tiene el material y un `ENTREGA.md` con lo que se hizo, los resulta
 | Lab | Carpeta | Estado |
 |---|---|---|
 | Continued Pretraining con SmolLM2 (Parte B resuelta) | [`extras/cpt-smollm2`](extras/cpt-smollm2) | ejecutado en T4, resultados en ENTREGA.md |
-| Supervised Fine-tuning con BETO (Parte B resuelta) | [`extras/sft-beto`](extras/sft-beto) | pendiente de ejecución |
+| Supervised Fine-tuning con BETO (Parte B resuelta) | [`extras/sft-beto`](extras/sft-beto) | ejecutado en T4, resultados en ENTREGA.md |
 
 ## Cómo reproducir
 
