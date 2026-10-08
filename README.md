@@ -8,7 +8,7 @@ Laboratorios y entregas del curso de Procesamiento de Lenguaje Natural.
 | 1 | Lab 1 · Preprocesamiento, N-grams y embeddings | [`01-lab1-embeddings`](01-lab1-embeddings) | Colab (CPU) | en curso |
 | 2 | Lab 3 · Transformers y HuggingFace | [`02-lab3-transformers`](02-lab3-transformers) | Colab (CPU) | en curso |
 | 3 | Lab · Embeddings contextuales y Transformers (semana 2) | [`03-transformers-semana2`](03-transformers-semana2) | Colab (T4) | en curso |
-| 4 | Lab · Continued Pretraining con SmolLM2 | [`04-cpt-smollm2`](04-cpt-smollm2) | Colab (T4) | Parte B resuelta, pendiente de ejecución |
+| 4 | Lab · Continued Pretraining con SmolLM2 | [`04-cpt-smollm2`](04-cpt-smollm2) | Colab (T4) | **entregada** (ejecutado en T4, resultados en ENTREGA.md) |
 | 5 | Lab · Supervised Fine-tuning con BETO | [`05-sft-beto`](05-sft-beto) | Colab (T4) | Parte B resuelta, pendiente de ejecución |
 | 6 | Lab · Agentes con Strands + Reto 07 | [`06-agentes-strands`](06-agentes-strands) | local, API de OpenAI | reto implementado, pendiente de corrida |
 
