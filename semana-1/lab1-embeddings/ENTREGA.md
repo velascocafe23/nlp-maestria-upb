@@ -1,6 +1,6 @@
 # Semana 1 · Lab 1: Preprocesamiento, N-grams y Word Embeddings
 
-**Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (CPU)
+**Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (CPU) · **Ejecutado:** 7 de octubre de 2026, sin errores, con las salidas guardadas
 **Notebook:** [`lab1_embeddings.ipynb`](lab1_embeddings.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/semana-1/lab1-embeddings/lab1_embeddings.ipynb))
 
 ## Qué se hizo
@@ -14,12 +14,14 @@ Dos ajustes al material original, documentados en el encabezado del notebook:
 
 ## Resultados observados
 
-_(se completan con la salida de la ejecución; ver celdas del notebook)_
-
-- Tokenización de `"El banco BBVA Colombia reportó utilidades en el trimestre"`: por palabras = 9 tokens, por caracteres = 58, BPE = _(n)_. Palabras como `reportaron`, `bancolombia` y `fintech` se parten en subpalabras.
-- Clasificador de sentimiento con 28 frases: baseline (clase mayoritaria) _(x)_, BoW + LogReg _(x)_, TF-IDF + LogReg _(x)_.
-- Perplejidad del bigrama: oración financiera vs. "el perro come pizza en el parque": _(x)_ vs. _(x)_.
-- Analogía `king - man + woman` → _(top-1)_; sesgo de género: profesiones orientadas a "man" _(lista)_ y a "woman" _(lista)_.
+- **Pipeline de limpieza:** de 21 tokens originales a 17 tras quitar stopwords. El stemmer deja raíces ilegibles (`banc`, `colombi`, `util`); la lematización con spaCy conserva palabras (`utilidad`, `billón`) pero se equivoca cuando el texto ya está normalizado: etiqueta `trimestre` como verbo y lo convierte en `trimestrar`, y a `TOKEN_NUM` lo trata como adjetivo. Preprocesar demasiado antes de lematizar le quita al lematizador el contexto que necesita.
+- **Tokenización** de *"El banco BBVA Colombia reportó utilidades en el trimestre"*: por palabras = 9 tokens, por caracteres = 57, BPE (`bert-base-multilingual-cased`) = **14** (`BB`/`##VA`, `report`/`##ó`, `ut`/`##ilidade`/`##s`, `trim`/`##estre`). `bancolombia` → `banco`/`##lom`/`##bia`; `fintech` → `fin`/`##tech`; `descontextualizado` → 5 piezas.
+- **One-hot:** similitud 0 entre cualquier par de palabras distintas. **TF-IDF:** en "el banco central sube la tasa de interés" pesan más `sube`, `central`, `interes` (0,42) que `el`, `la`, `banco` (0,28).
+- **Clasificador de sentimiento** (28 frases, test de 7): baseline 0,43 · BoW + LogReg 0,43 · **TF-IDF + LogReg 0,57**. La palabra más predictiva de negativo es `no` (−0,54); entre las positivas aparece `de` (0,33), señal de que con 21 frases de entrenamiento el modelo memoriza ruido.
+- **OOV:** con el vocabulario de 2024 (33 palabras), el texto de Nequi/Daviplata tiene **100 % de OOV** y el de criptomonedas 83 %; la frase sobre el banco central, 0 %.
+- **Bigrama con Laplace** (20 oraciones, 93 palabras únicas): después de `banco` lo más probable es `central` (0,04). Perplejidad: "el banco reportó utilidades en el trimestre" 32,8 · "la tasa de interés subió" 33,9 · **"el perro come pizza en el parque" 62,3**. El suavizado comprime la diferencia (sin él la última sería infinita).
+- **GloVe:** `bank` se parece a `credit` (0,70) e `investment` (0,69) y no a `cat` (0,15). Analogías: `king − man + woman` → **queen (0,77)**; `paris − france + germany` → berlin (0,89); `colombia − bogota + lima` → peru (0,81). Las dos primeras componentes del PCA explican el 41 % de la varianza.
+- **Sesgo de género** (diferencia `sim(man) − sim(woman)`): hacia hombre `manager` (+0,21), `engineer` (+0,10), `assistant`, `programmer`, `secretary` (+0,06), `scientist`, `pilot`; hacia mujer `nurse` (−0,16), `teacher` (−0,05); neutros `doctor`, `chef`, `lawyer`. Que `secretary` y `assistant` salgan "hombre" muestra que la métrica es ruidosa con una sola pareja de palabras.
 
 ## Reflexiones
 
@@ -30,11 +32,11 @@ _(se completan con la salida de la ejecución; ver celdas del notebook)_
 2. Con BPE se parte en subpalabras (`desist`, `##imiento`, por ejemplo); el modelo conserva la raíz y la relaciona con "desistir" y con otros sustantivos en `-miento`. La búsqueda degrada con gracia en lugar de fallar.
 3. Por caracteres conviene cuando el dominio tiene mucha ortografía irregular o códigos (números de radicado, siglas, citas de artículos como "art. 174 CGP") y el vocabulario de subpalabras no los cubre; el costo es secuencias largas y más cómputo.
 
-**Reflexión 3.5 — Limitaciones de BoW.** El clasificador funciona porque el dataset es pequeño y las palabras polares son explícitas. BoW ignora el orden, así que "no lo recomiendo" y "lo recomiendo" comparten casi todo el vector; con negación, ironía o jerga el rendimiento cae. Además cada palabra es una dimensión independiente: "pésimo" y "horrible" no se parecen para el modelo aunque sean sinónimos.
+**Reflexión 3.5 — Limitaciones de BoW.** El clasificador apenas supera al azar (0,57 con 7 frases de test; BoW puro empató con el baseline) y entre sus palabras "positivas" está `de`: con 21 ejemplos de entrenamiento memoriza ruido. Lo rescatable es que `no` es la palabra más negativa, señal de que al menos captura la negación léxica. BoW ignora el orden, así que "no lo recomiendo" y "lo recomiendo" comparten casi todo el vector; con negación, ironía o jerga el rendimiento cae. Además cada palabra es una dimensión independiente: "pésimo" y "horrible" no se parecen para el modelo aunque sean sinónimos.
 
 **Reflexión 3.6 — OOV.** El porcentaje de OOV crece con la distancia temporal y de dominio entre el corpus de entrenamiento y el de uso ("fintech", "nequi", "criptomoneda" no existían en el vocabulario de 2024). Mitigaciones: reentrenar el vectorizador periódicamente, usar subpalabras (BPE), o pasar a embeddings preentrenados sobre corpus grandes y recientes.
 
-**Reflexión 3 — Perplejidad.** Una perplejidad alta para "el perro come pizza en el parque" dice que el modelo aprendió la distribución de **noticias financieras**, no del español: los bigramas de esa oración casi no aparecen en el corpus. No es que la oración sea "mala", es que está fuera de dominio. Bonus: con P = 0 en un solo bigrama, la probabilidad de la oración es 0, el logaritmo es −∞ y la perplejidad se vuelve infinita; el suavizado de Laplace reparte una masa pequeña a los bigramas no vistos para que eso no ocurra.
+**Reflexión 3 — Perplejidad.** Una perplejidad de 62 para "el perro come pizza en el parque", casi el doble que la de las frases financieras (33), dice que el modelo aprendió la distribución de **noticias financieras**, no del español: los bigramas de esa oración casi no aparecen en el corpus. No es que la oración sea "mala", es que está fuera de dominio. Bonus: con P = 0 en un solo bigrama, la probabilidad de la oración es 0, el logaritmo es −∞ y la perplejidad se vuelve infinita; el suavizado de Laplace reparte una masa pequeña a los bigramas no vistos para que eso no ocurra.
 
 **Reflexión final.**
 1. *N-grams vs. embeddings:* prefiero un N-gram cuando necesito latencia mínima y cero dependencias (autocompletado en un teclado, detección de idioma, corrección en un sistema embebido), cuando el corpus es pequeño y muy específico, o cuando debo explicar cada predicción con conteos auditables.

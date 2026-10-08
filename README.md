@@ -7,8 +7,8 @@ Laboratorios y entregas del curso de Procesamiento de Lenguaje Natural.
 
 | Tarea | Contenido | Carpeta | Entorno | Estado |
 |---|---|---|---|---|
-| **Semana 1** | Lab 1 · Preprocesamiento, N-grams y embeddings | [`semana-1/lab1-embeddings`](semana-1/lab1-embeddings) | Colab (CPU) | en curso |
-| | Lab 3 · Transformers y HuggingFace en español | [`semana-1/lab3-transformers`](semana-1/lab3-transformers) | Colab (CPU) | en curso |
+| **Semana 1** | Lab 1 · Preprocesamiento, N-grams y embeddings | [`semana-1/lab1-embeddings`](semana-1/lab1-embeddings) | Colab (CPU) | **entregada** (ejecutado, resultados en ENTREGA.md) |
+| | Lab 3 · Transformers y HuggingFace en español | [`semana-1/lab3-transformers`](semana-1/lab3-transformers) | Colab (CPU) | **entregada** (ejecutado, resultados en ENTREGA.md) |
 | **Semana 2** | Lab · Embeddings contextuales y Transformers (comparativa multi-modelo, atención, clustering, zero-shot) | [`semana-2/lab-transformers`](semana-2/lab-transformers) | Colab (T4) | **entregada** (ejecutado en T4, resultados en ENTREGA.md) |
 | **Semana 3** | Lab de agentes con Strands + **Reto 07: ¿de verdad necesitas un agente?** | [`semana-3/agentes-strands`](semana-3/agentes-strands) | local, API de OpenAI | **entregada** (90 corridas, `ANALISIS.md` y `resultados.csv`) |
 

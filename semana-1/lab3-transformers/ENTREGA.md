@@ -1,6 +1,6 @@
 # Semana 1 · Lab 3: Transformers y HuggingFace en Español
 
-**Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (CPU)
+**Autor:** Sebastián Velasco Ardila · **Entorno:** Google Colab (CPU) · **Ejecutado:** 7 de octubre de 2026, sin errores, con las salidas guardadas
 **Notebook:** [`lab3_transformers.ipynb`](lab3_transformers.ipynb) ([abrir en Colab](https://colab.research.google.com/github/velascocafe23/nlp-maestria-upb/blob/main/semana-1/lab3-transformers/lab3_transformers.ipynb))
 
 ## Qué se hizo
@@ -9,12 +9,11 @@ Ejecuté el notebook guiado completo: demostración de la limitación de GloVe (
 
 ## Resultados observados
 
-_(se completan con la salida de la ejecución)_
-
-- Similitud coseno entre los dos "banco" de BETO: _(x)_ (con GloVe sería 1.000).
-- `banco(financiero) ~ dinero` = _(x)_; `banco(parque) ~ parque` = _(x)_.
-- Sentimiento: _(n)_ de 10 tweets clasificados como esperaba; casos dudosos: _(…)_.
-- NER: entidades bien detectadas _(…)_; partidas o confundidas _(…)_.
+- **GloVe:** `bank` idéntico en las dos oraciones (similitud 1,000); se parece a `credit` (0,70), `money` (0,57), `loan` (0,55) y poco a `river` (0,33) o `bench` (0,11), sin importar el contexto.
+- **Sentimiento (RoBERTuito):** 10 de 10 tweets como esperaba, con confianza 0,79–0,98. Los neutros son los menos seguros (0,79 el del comunicado de horarios, 0,86 "acabo de recibir el pedido, aún no lo he abierto"). La negación se resolvió bien: "no vuelvo a comprar nunca más" → negativo 0,96.
+- **NER:** bien `Bancolombia`, `Ecopetrol`, `Bolsa de Valores de Colombia`, `Grupo Nutresa`, `Avianca`, `Airbus`, `Banco de la Republica` (ORG), `Leonardo Villar` (PER), `Nueva York`, `America Latina`, `Bogota` (LOC). Un solo problema: `Medellin` partido en `Medell` + `##in` (LOC, el segundo con 0,65).
+- **BETO:** similitud entre el "banco" de *"Fui al banco a depositar dinero"* y el de *"Me senté en el banco del parque"* = **0,841**; `banco(financiero)~dinero` 0,79, `banco(parque)~parque` 0,85.
+- **LoRA:** celda conceptual, no se ejecutó entrenamiento (como pide el lab).
 
 ## Reflexiones
 
@@ -25,9 +24,9 @@ _(se completan con la salida de la ejecución)_
 2. Prefiero TF-IDF + LogReg cuando necesito explicar la predicción (auditoría, regulación), cuando no hay GPU y el volumen es alto, o cuando la tarea es temática con vocabulario marcado y el F1 ya es suficiente.
 3. Un modelo preentrenado con tweets genéricos puede fallar con la jerga, los productos y la ironía de **mi** dominio; sin validarlo con una muestra etiquetada propia no sé cuánto confiar en él, y sus errores son silenciosos.
 
-**Reflexión 2b — NER.** "Banco de la República" es difícil porque "República" se parece a un lugar y el nombre es compuesto; el modelo tiende a partirlo o etiquetarlo como LOC. Usaría NER para leer contratos y extraer partes y montos, para monitorear noticias de competidores y para enlazar menciones de clientes en PQRs con la base de datos. BoW no sirve porque la tarea es **secuencial**: hay que etiquetar cada token según su posición y sus vecinos, no contar palabras del documento.
+**Reflexión 2b — NER.** Esperaba que "Banco de la República" fuera el caso difícil (nombre compuesto, "República" suena a lugar) y el modelo lo resolvió como ORG con 1,00; lo que falló fue `Medellín` escrito sin tilde, partido en `Medell`/`##in` porque esa forma no está en el vocabulario de BETO y el agrupador no une sub-tokens con confianzas muy distintas. Lección: no quitar tildes antes de NER, al contrario de lo que haríamos para BoW. Usaría NER para leer contratos y extraer partes y montos, para monitorear noticias de competidores y para enlazar menciones de clientes en PQRs con la base de datos. BoW no sirve porque la tarea es **secuencial**: hay que etiquetar cada token según su posición y sus vecinos, no contar palabras del documento.
 
-**Reflexión 3 — Embeddings contextuales.** La similitud es < 1 porque cada capa de atención recombina el vector de "banco" con los de las palabras que lo rodean; la información sale de esos vecinos ("depositar", "dinero" vs. "senté", "parque"). Como features para un clasificador usaría el mean pooling del `last_hidden_state` (o el `[CLS]` si el modelo está afinado) y entrenaría una regresión logística encima: es exactamente el baseline del lab de SFT.
+**Reflexión 3 — Embeddings contextuales.** La similitud es 0,84 y no 1 porque cada capa de atención recombina el vector de "banco" con los de las palabras que lo rodean; la información sale de esos vecinos ("depositar", "dinero" vs. "senté", "parque"). Como features para un clasificador usaría el mean pooling del `last_hidden_state` (o el `[CLS]` si el modelo está afinado) y entrenaría una regresión logística encima: es exactamente el baseline del lab de SFT.
 
 **Reflexión 4 — Fine-tuning y LoRA.**
 1. Entrenar < 1 % de los parámetros funciona porque la adaptación a una tarea nueva ocupa un subespacio de bajo rango: los pesos preentrenados ya saben el idioma y solo hace falta un ajuste pequeño en las proyecciones de atención.
